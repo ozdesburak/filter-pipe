@@ -1,0 +1,34 @@
+
+<label for="searchProduct">Search by Products</label>
+<input type="text" class="form-control" id="searchProduct"  [(ngModel)]="searchBoxTxt" name="searchBoxTxt"aria-describedby="productName">
+<small id="productName" class="form-text text-muted" *ngIf="!searchBoxTxt">Please Enter Product Name</small>
+<br>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Product code</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+   <tr *ngFor="let item of myData | searchBox: searchBoxTxt ">
+      <td class="text-center">{{item.productCode}}</td>
+      <td>{{item.productName}}</td>
+      <td class="text-center">{{item.productQuantity}}</td>
+      <td class="text-right">{{item.productPrice.toFixed(2)}}</td>
+      <td>
+        <span class="badge badge-danger badge-pill" *ngIf="item.productPrice|checkSale">
+          {{item.productPrice|checkSale}}</span>
+      </td>
+  </tr>
+  </tbody>
+</table>
+<div *ngIf="(myData | searchBox: searchBoxTxt).length===0" class="text-center">
+  <small>No Product Found .. . </small>
+</div>
+
+
+
